@@ -4,18 +4,18 @@
 #include <chrono>
 #include <string>
 #include <cstdio>
-#include "boid.h"
+#include "boid.cpp"
 #include <cmath>
 
 
 int main() {
 
     //define our constant variables of the simulation.
-    const int width = 1920;
-    const int height = 1080;
+    const float width = 1920;
+    const float height = 1080;
 
-    const int boidCount = 500;
-    const int boidSize = 2;
+    const int boidCount = 1000;
+    const float boidSize = 2;
 
     const float alignmentWeight = 1;
     const float cohesionWeight = 0.1;
@@ -51,8 +51,7 @@ int main() {
 
     }
 
-
-    sf::RenderWindow window(sf::VideoMode(width, height), "Flocking");
+    sf::RenderWindow window(sf::VideoMode(uint32_t(width), uint32_t (height)), "Flocking");
     sf::Clock clock;
     float lastTime = 0;
     int frameCount = 0;
@@ -60,7 +59,7 @@ int main() {
 
 
     while (window.isOpen()) {
-        sf::Event event;
+        sf::Event event{};
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
@@ -70,7 +69,7 @@ int main() {
         lastTime += clock.restart().asSeconds();
         frameCount++;
         if (lastTime >= 1.0f) {
-            float fps = frameCount / lastTime;
+            float fps = float(frameCount) / lastTime;
             window.setTitle("FPS: " + std::to_string(static_cast<int>(fps)));
 
             lastTime = 0;
